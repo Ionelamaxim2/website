@@ -6,15 +6,16 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { name: "Home", href: "/" },
-    { name: "Prices", href: "#prices" },
+    { name: "Home", href: "/#home" },
+    { name: "Prices", href: "/prices" },
     { name: "About Us", href: "/about" },
+    { name: "Contact", href: "/contact" },
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-transparent">
+      <div className="hidden">
+        <div className="h-0">
           {/* Logo */}
           <div className="flex-shrink-0">
             <h1 className="text-2xl font-display font-bold text-gradient">
@@ -22,20 +23,8 @@ const Navbar = () => {
             </h1>
           </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-8">
-              {navItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="text-muted-foreground hover:text-primary transition-colors duration-300 link-underline"
-                >
-                  {item.name}
-                </a>
-              ))}
-            </div>
-          </div>
+          {/* Desktop Navigation removed — links shown in secondary pill bar */}
+          <div className="hidden md:block" />
 
           {/* Contact Button */}
           <div className="hidden md:block">
@@ -79,6 +68,21 @@ const Navbar = () => {
           </div>
         </div>
       )}
+      {/* Secondary pill navbar (desktop), stacked under main bar */}
+      <div className="hidden md:block fixed top-6 left-1/2 -translate-x-1/2 z-[60]">
+        <div className="flex items-center gap-3 bg-background/60 border border-border backdrop-blur-lg py-1 px-1 rounded-full shadow-lg">
+          {navItems.map((item) => (
+            <a
+              key={item.name}
+              href={item.href}
+              className="relative cursor-pointer text-sm font-semibold px-6 py-2 rounded-full transition-colors hover:text-primary text-foreground/90 hover:bg-primary/10"
+            >
+              {item.name}
+            </a>
+          ))}
+        </div>
+      </div>
+      {/* Third and fourth bars (thin progress-style) to emulate the multi-steps feel */}
     </nav>
   );
 };

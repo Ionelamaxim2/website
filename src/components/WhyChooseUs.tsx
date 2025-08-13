@@ -4,40 +4,45 @@ const WhyChooseUs = () => {
   const reasons = [
     {
       icon: <Award className="w-8 h-8" />,
-      title: "Experiență Demonstrată",
-      description: "Peste 100 de proiecte livrate cu succes pentru companii din diverse industrii",
-      stats: "100+ proiecte"
+      title: "Calitate Garantată",
+      description: "Procese riguroase de QA și code review în fiecare livrare",
+      stats: "QA riguros",
     },
     {
       icon: <Clock className="w-8 h-8" />,
       title: "Livrare Rapidă",
-      description: "Respectăm deadlines-urile stabilite și livrăm de obicei cu 20% mai devreme",
-      stats: "Livrare în timp"
+      description:
+        "Respectăm deadlines-urile stabilite și livrăm de obicei cu 20% mai devreme",
+      stats: "Livrare în timp",
     },
     {
       icon: <Users className="w-8 h-8" />,
       title: "Echipă Dedicată",
-      description: "Fiecare proiect beneficiază de o echipă completă: dezvoltatori, designeri, PM",
-      stats: "Echipă completă"
+      description:
+        "Fiecare proiect beneficiază de o echipă completă: dezvoltatori, designeri, PM",
+      stats: "Echipă completă",
     },
     {
       icon: <Headphones className="w-8 h-8" />,
       title: "Support 24/7",
-      description: "Suport tehnic disponibil non-stop pentru menținerea performanțelor optime",
-      stats: "Disponibilitate totală"
+      description:
+        "Suport tehnic disponibil non-stop pentru menținerea performanțelor optime",
+      stats: "Disponibilitate totală",
     },
     {
       icon: <Target className="w-8 h-8" />,
       title: "Focus pe ROI",
-      description: "Fiecare decizie tehnică este luată cu scopul de a maximiza returul investiției",
-      stats: "+150% ROI mediu"
+      description:
+        "Fiecare decizie tehnică este luată cu scopul de a maximiza returul investiției",
+      stats: "+150% ROI mediu",
     },
     {
       icon: <Code className="w-8 h-8" />,
       title: "Tehnologii Premium",
-      description: "Folosim cele mai noi tehnologii: React, Next.js, TypeScript, Cloud Infrastructure",
-      stats: "Tech de vârf"
-    }
+      description:
+        "Folosim cele mai noi tehnologii: React, Next.js, TypeScript, Cloud Infrastructure",
+      stats: "Tech de vârf",
+    },
   ];
 
   return (
@@ -48,7 +53,8 @@ const WhyChooseUs = () => {
             De ce să ne <span className="text-gradient">Alegi</span>?
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Suntem mai mult decât dezvoltatori - suntem partenerii tăi în transformarea digitală
+            Suntem mai mult decât dezvoltatori - suntem partenerii tăi în
+            transformarea digitală
           </p>
         </div>
 
@@ -60,9 +66,7 @@ const WhyChooseUs = () => {
             >
               <div className="flex items-start gap-4 mb-6">
                 <div className="w-16 h-16 bg-gradient-primary rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <div className="text-white">
-                    {reason.icon}
-                  </div>
+                  <div className="text-white">{reason.icon}</div>
                 </div>
                 <div className="flex-1">
                   <h3 className="text-xl font-display font-semibold mb-2 group-hover:text-primary transition-colors">
@@ -73,7 +77,7 @@ const WhyChooseUs = () => {
                   </div>
                 </div>
               </div>
-              
+
               <p className="text-muted-foreground leading-relaxed">
                 {reason.description}
               </p>
@@ -86,13 +90,29 @@ const WhyChooseUs = () => {
           <h3 className="text-2xl font-display font-bold text-center mb-12">
             Procesul Nostru de Lucru
           </h3>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {[
-              { step: "01", title: "Consultație", desc: "Analizăm nevoile și obiectivele" },
-              { step: "02", title: "Planificare", desc: "Strategia și arhitectura tehnică" },
-              { step: "03", title: "Dezvoltare", desc: "Implementare cu actualizări regulate" },
-              { step: "04", title: "Launch & Support", desc: "Lansare și mentenanță continuă" }
+              {
+                step: "01",
+                title: "Consultație",
+                desc: "Analizăm nevoile și obiectivele",
+              },
+              {
+                step: "02",
+                title: "Planificare",
+                desc: "Strategia și arhitectura tehnică",
+              },
+              {
+                step: "03",
+                title: "Dezvoltare",
+                desc: "Implementare cu actualizări regulate",
+              },
+              {
+                step: "04",
+                title: "Launch & Support",
+                desc: "Lansare și mentenanță continuă",
+              },
             ].map((phase, index) => (
               <div key={index} className="text-center relative">
                 <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-white text-lg">
@@ -100,7 +120,7 @@ const WhyChooseUs = () => {
                 </div>
                 <h4 className="font-semibold mb-2">{phase.title}</h4>
                 <p className="text-muted-foreground text-sm">{phase.desc}</p>
-                
+
                 {index < 3 && (
                   <div className="hidden md:block absolute top-8 left-full w-full h-0.5 bg-gradient-to-r from-primary to-transparent -ml-8" />
                 )}

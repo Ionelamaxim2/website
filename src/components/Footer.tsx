@@ -1,91 +1,86 @@
 import { Button } from "@/components/ui/button";
-import { Mail, Phone, MapPin, Github, Linkedin, Twitter } from "lucide-react";
+import { Mail, Phone, MapPin } from "lucide-react";
+import emailjs from "@emailjs/browser";
+import {
+  EMAILJS_PUBLIC_KEY,
+  EMAILJS_SERVICE_ID,
+  EMAILJS_TEMPLATE_ID_NEWSLETTER,
+  areEmailEnvVarsConfigured,
+} from "@/lib/env";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const footerSections = [
+    // Servicii (dreapta)
     {
       title: "Servicii",
       links: [
-        { name: "Website Custom", href: "#" },
-        { name: "E-commerce", href: "#" },
-        { name: "Landing Pages", href: "#" },
-        { name: "Aplicații Web", href: "#" },
-        { name: "Consultanță", href: "#" }
-      ]
+        { name: "Website Custom", href: "/prices" },
+        { name: "E-commerce", href: "/prices" },
+        { name: "Landing Pages", href: "/prices" },
+        { name: "Aplicații Web", href: "/prices" },
+        { name: "Consultanță", href: "/contact" },
+      ],
     },
+    // Companie (dreapta)
     {
       title: "Companie",
       links: [
         { name: "Despre Noi", href: "/about" },
-        { name: "Portofoliu", href: "#" },
-        { name: "Proces", href: "#" },
-        { name: "Cariere", href: "#" },
-        { name: "Blog", href: "#" }
-      ]
+        { name: "Portofoliu", href: "/about" },
+        { name: "Proces", href: "/about" },
+        { name: "Cariere", href: "/about" },
+        { name: "Blog", href: "/about" },
+      ],
     },
-    {
-      title: "Suport",
-      links: [
-        { name: "Contact", href: "#" },
-        { name: "FAQ", href: "#" },
-        { name: "Documentație", href: "#" },
-        { name: "Status", href: "#" },
-        { name: "Politica de confidențialitate", href: "#" }
-      ]
-    }
   ];
 
-  const socialLinks = [
-    { icon: <Github className="w-5 h-5" />, href: "#", label: "GitHub" },
-    { icon: <Linkedin className="w-5 h-5" />, href: "#", label: "LinkedIn" },
-    { icon: <Twitter className="w-5 h-5" />, href: "#", label: "Twitter" }
-  ];
+  // Social links eliminate la cerere
 
   return (
     <footer className="bg-background-secondary border-t border-border">
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand Section */}
           <div className="lg:col-span-2">
             <h3 className="text-3xl font-display font-bold text-gradient mb-4">
               Code Bloom
             </h3>
             <p className="text-muted-foreground mb-6 leading-relaxed max-w-md">
-              Transformăm idei în experiențe digitale premium care aduc rezultate măsurabile pentru afacerea ta.
+              Transformăm idei în experiențe digitale premium care aduc
+              rezultate măsurabile pentru afacerea ta.
             </p>
-            
+
             {/* Contact Info */}
             <div className="space-y-3 mb-6">
               <div className="flex items-center gap-3 text-muted-foreground">
                 <Mail className="w-4 h-4 text-primary" />
-                <span>contact@codebloom.ro</span>
+                <a
+                  href="mailto:codebloom02@gmail.com"
+                  className="hover:text-primary transition-colors"
+                >
+                  codebloom02@gmail.com
+                </a>
               </div>
               <div className="flex items-center gap-3 text-muted-foreground">
                 <Phone className="w-4 h-4 text-primary" />
-                <span>+40 723 456 789</span>
+                <a
+                  href="tel:+40786772343"
+                  className="hover:text-primary transition-colors"
+                >
+                  +40 786 772 343
+                </a>
               </div>
               <div className="flex items-center gap-3 text-muted-foreground">
                 <MapPin className="w-4 h-4 text-primary" />
-                <span>București, România</span>
+                <span>Constanța, România</span>
               </div>
             </div>
 
-            {/* Social Links */}
-            <div className="flex gap-4">
-              {socialLinks.map((social, index) => (
-                <a
-                  key={index}
-                  href={social.href}
-                  aria-label={social.label}
-                  className="w-10 h-10 bg-card border border-card-border rounded-lg flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-all duration-300 hover:shadow-glow-primary"
-                >
-                  {social.icon}
-                </a>
-              ))}
-            </div>
+            {/* Social Links removed by request */}
+            <div className="h-10" />
           </div>
 
           {/* Footer Sections */}
@@ -117,18 +112,10 @@ const Footer = () => {
               Rămâi la curent
             </h4>
             <p className="text-muted-foreground text-sm mb-4">
-              Primește cele mai noi tendințe în web development și oferte exclusive.
+              Primește cele mai noi tendințe în web development și oferte
+              exclusive.
             </p>
-            <div className="flex gap-2">
-              <input
-                type="email"
-                placeholder="Email-ul tău"
-                className="flex-1 px-4 py-2 bg-card border border-card-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-              />
-              <Button variant="default" size="sm">
-                Abonează-te
-              </Button>
-            </div>
+            <NewsletterForm />
           </div>
         </div>
       </div>
@@ -141,13 +128,19 @@ const Footer = () => {
               © {currentYear} Code Bloom. Toate drepturile rezervate.
             </div>
             <div className="flex gap-6 text-sm text-muted-foreground">
-              <a href="#" className="hover:text-primary transition-colors">
+              <a href="/terms" className="hover:text-primary transition-colors">
                 Termeni și Condiții
               </a>
-              <a href="#" className="hover:text-primary transition-colors">
+              <a
+                href="/privacy"
+                className="hover:text-primary transition-colors"
+              >
                 Politica de Confidențialitate
               </a>
-              <a href="#" className="hover:text-primary transition-colors">
+              <a
+                href="/cookies"
+                className="hover:text-primary transition-colors"
+              >
                 Cookie-uri
               </a>
             </div>
@@ -159,3 +152,46 @@ const Footer = () => {
 };
 
 export default Footer;
+
+function NewsletterForm() {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget as HTMLFormElement;
+    const formData = new FormData(form);
+    const email = (formData.get("email") as string) || "";
+    if (!email) return;
+    try {
+      if (areEmailEnvVarsConfigured() && EMAILJS_TEMPLATE_ID_NEWSLETTER) {
+        emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY! });
+        await emailjs.send(
+          EMAILJS_SERVICE_ID!,
+          EMAILJS_TEMPLATE_ID_NEWSLETTER,
+          {
+            email,
+          }
+        );
+        alert("Te-ai abonat cu succes.");
+      } else {
+        alert("Demo: abonare înregistrată local.");
+      }
+      form.reset();
+    } catch (err) {
+      alert("Eroare la abonare. Încearcă din nou.");
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="flex gap-2">
+      <input
+        name="email"
+        type="email"
+        placeholder="Email-ul tău"
+        required
+        className="flex-1 px-4 py-2 bg-card border border-card-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+      />
+      <Button type="submit" variant="default" size="sm">
+        Abonează-te
+      </Button>
+    </form>
+  );
+}
