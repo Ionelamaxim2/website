@@ -37,14 +37,26 @@ const Hero = () => {
 
         <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-fade-in delay-700">
           <Button asChild variant="outline" size="xl" className="group">
-            <Link to="/about">
+            <Link
+              to={
+                (import.meta as any).env.VITE_ROUTER_MODE === "hash"
+                  ? "/#/about"
+                  : "/about"
+              }
+            >
               Vezi Portofoliul
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
           </Button>
 
           <Button asChild variant="outline" size="xl" className="group">
-            <Link to="/contact">
+            <Link
+              to={
+                (import.meta as any).env.VITE_ROUTER_MODE === "hash"
+                  ? "/#/contact"
+                  : "/contact"
+              }
+            >
               <Code className="w-5 h-5 group-hover:rotate-12 transition-transform" />
               Contactează-ne
             </Link>

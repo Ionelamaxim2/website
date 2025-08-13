@@ -99,7 +99,13 @@ const WebsiteTypes = () => {
                   </span>
                 </div>
                 <Button asChild variant="premium" className="w-full group">
-                  <a href="/contact">
+                  <a
+                    href={
+                      (import.meta as any).env.VITE_ROUTER_MODE === "hash"
+                        ? "/#/contact"
+                        : "/contact"
+                    }
+                  >
                     Solicită Ofertă
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </a>

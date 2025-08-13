@@ -96,7 +96,12 @@ const Footer = () => {
                 {section.links.map((link, linkIndex) => (
                   <li key={linkIndex}>
                     <a
-                      href={link.href}
+                      href={
+                        (import.meta as any).env.VITE_ROUTER_MODE === "hash" &&
+                        link.href.startsWith("/")
+                          ? `/#${link.href}`
+                          : link.href
+                      }
                       className="text-muted-foreground hover:text-primary transition-colors duration-300 text-sm link-underline"
                     >
                       {link.name}
