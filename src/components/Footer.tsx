@@ -1,6 +1,9 @@
 import { Button } from "@/components/ui/button";
+import { CheckCircle2 } from "lucide-react";
 import { Mail, Phone, MapPin } from "lucide-react";
 import emailjs from "@emailjs/browser";
+import { useState } from "react";
+import { toast } from "sonner";
 import {
   EMAILJS_PUBLIC_KEY,
   EMAILJS_SERVICE_ID,
@@ -154,6 +157,8 @@ const Footer = () => {
 export default Footer;
 
 function NewsletterForm() {
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget as HTMLFormElement;
@@ -161,6 +166,7 @@ function NewsletterForm() {
     const email = (formData.get("email") as string) || "";
     if (!email) return;
     try {
+      setSubmitting(true);
       if (areEmailEnvVarsConfigured() && EMAILJS_TEMPLATE_ID_NEWSLETTER) {
         emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY! });
         await emailjs.send(
@@ -170,28 +176,49 @@ function NewsletterForm() {
             email,
           }
         );
-        alert("Te-ai abonat cu succes.");
+        toast.success("Te-ai abonat cu succes.");
+        setSubmitted(true);
+        setTimeout(() => setSubmitted(false), 5000);
       } else {
-        alert("Demo: abonare înregistrată local.");
+        toast.success("Demo: abonare înregistrată local.");
+        setSubmitted(true);
+        setTimeout(() => setSubmitted(false), 5000);
       }
       form.reset();
     } catch (err) {
-      alert("Eroare la abonare. Încearcă din nou.");
+      toast.error("Eroare la abonare. Încearcă din nou.");
+    } finally {
+      setSubmitting(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex gap-2">
-      <input
-        name="email"
-        type="email"
-        placeholder="Email-ul tău"
-        required
-        className="flex-1 px-4 py-2 bg-card border border-card-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-      />
-      <Button type="submit" variant="default" size="sm">
-        Abonează-te
-      </Button>
-    </form>
+    <div>
+      <form onSubmit={handleSubmit} className="flex gap-2">
+        <input
+          name="email"
+          type="email"
+          placeholder="Email-ul tău"
+          required
+          className="flex-1 px-4 py-2 bg-card border border-card-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+        />
+        <Button
+          type="submit"
+          variant="default"
+          size="sm"
+          className="group rounded-full"
+          disabled={submitting}
+        >
+          <CheckCircle2 className="w-4 h-4 mr-1 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+          {submitting ? "Se trimite..." : "Abonează-te"}
+        </Button>
+      </form>
+      {submitted && (
+        <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-card-border bg-background/70 px-3 py-1 text-sm text-foreground shadow-soft">
+          <CheckCircle2 className="w-4 h-4 text-primary" />
+          Te-ai abonat cu succes
+        </div>
+      )}
+    </div>
   );
 }
