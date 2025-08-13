@@ -96,12 +96,7 @@ const Footer = () => {
                 {section.links.map((link, linkIndex) => (
                   <li key={linkIndex}>
                     <a
-                      href={
-                        (import.meta as any).env.VITE_ROUTER_MODE === "hash" &&
-                        link.href.startsWith("/")
-                          ? `/#${link.href}`
-                          : link.href
-                      }
+                      href={link.href}
                       className="text-muted-foreground hover:text-primary transition-colors duration-300 text-sm link-underline"
                     >
                       {link.name}
@@ -136,17 +131,32 @@ const Footer = () => {
               © {currentYear} Code Bloom. Toate drepturile rezervate.
             </div>
             <div className="flex gap-6 text-sm text-muted-foreground">
-              <a href="/terms" className="hover:text-primary transition-colors">
+              <a
+                href={
+                  (import.meta as any).env.VITE_ROUTER_MODE === "hash"
+                    ? "/#/terms"
+                    : "/terms"
+                }
+                className="hover:text-primary transition-colors"
+              >
                 Termeni și Condiții
               </a>
               <a
-                href="/privacy"
+                href={
+                  (import.meta as any).env.VITE_ROUTER_MODE === "hash"
+                    ? "/#/privacy"
+                    : "/privacy"
+                }
                 className="hover:text-primary transition-colors"
               >
                 Politica de Confidențialitate
               </a>
               <a
-                href="/cookies"
+                href={
+                  (import.meta as any).env.VITE_ROUTER_MODE === "hash"
+                    ? "/#/cookies"
+                    : "/cookies"
+                }
                 className="hover:text-primary transition-colors"
               >
                 Cookie-uri
