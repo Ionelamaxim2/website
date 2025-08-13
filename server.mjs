@@ -21,7 +21,8 @@ app.use(
 );
 
 // SPA fallback to index.html
-app.get("*", (_req, res) => {
+// SPA fallback (Express v5 compatible)
+app.use((_req, res) => {
   res.sendFile(path.join(distPath, "index.html"));
 });
 
